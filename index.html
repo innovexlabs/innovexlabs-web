@@ -1,0 +1,2256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InnovexLabs - Enterprise AI Solutions | Transform Your Business</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #8b5cf6;
+            --accent: #06b6d4;
+            --accent-pink: #ec4899;
+            --success: #10b981;
+            --warning: #f59e0b;
+            
+            --bg-primary: #0a0e27;
+            --bg-secondary: #111736;
+            --bg-tertiary: #1a1f3a;
+            --bg-card: #151b35;
+            
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+            
+            --border-color: rgba(148, 163, 184, 0.1);
+            --border-hover: rgba(99, 102, 241, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--primary), transparent);
+            top: -10%;
+            left: -10%;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--secondary), transparent);
+            bottom: -10%;
+            right: -10%;
+            animation-delay: 5s;
+        }
+
+        .orb-3 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, var(--accent), transparent);
+            top: 50%;
+            right: 20%;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(50px, -50px) scale(1.1); }
+            66% { transform: translate(-30px, 30px) scale(0.9); }
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.8);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s;
+        }
+
+        header.scrolled {
+            background: rgba(10, 14, 39, 0.95);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 5%;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            z-index: 1;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .logo-text {
+            background: linear-gradient(135deg, var(--primary-light), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 0.7rem 1.8rem !important;
+            border-radius: 8px;
+            color: white !important;
+        }
+
+        .nav-cta::after {
+            display: none;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1;
+        }
+
+        .menu-toggle span {
+            width: 28px;
+            height: 3px;
+            background: var(--text-primary);
+            transition: all 0.3s;
+            border-radius: 2px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -350px;
+            width: 350px;
+            height: 100vh;
+            background: var(--bg-secondary);
+            padding: 2rem;
+            z-index: 2000;
+            transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-left: 1px solid var(--border-color);
+            box-shadow: -10px 0 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .sidebar.active {
+            right: 0;
+        }
+
+        .sidebar-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-primary);
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .sidebar-close:hover {
+            background: var(--bg-tertiary);
+            transform: rotate(90deg);
+        }
+
+        .sidebar-content {
+            margin-top: 4rem;
+        }
+
+        .sidebar-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .sidebar-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            display: block;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            border: 1px solid transparent;
+        }
+
+        .sidebar-links a:hover {
+            color: var(--text-primary);
+            background: var(--bg-tertiary);
+            border-color: var(--border-hover);
+            transform: translateX(5px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 10rem 5% 6rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 1100px;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.6rem 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            color: var(--primary-light);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 0%, var(--primary-light) 50%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+            font-weight: 800;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .hero-description {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+
+        .btn {
+            padding: 1.1rem 2.8rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.5);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-hover);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-tertiary);
+            transform: translateY(-3px);
+            border-color: var(--primary);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 5rem;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-light), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-stat-label {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 0.3rem;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 7rem 5%;
+            max-width: 1600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-badge {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            color: var(--primary-light);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-primary), var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 2.5rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.2);
+        }
+
+        .product-card:hover::before {
+            opacity: 1;
+        }
+
+        .product-icon-wrapper {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-features li {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .product-features li::before {
+            content: '✓';
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .product-link {
+            color: var(--primary-light);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            z-index: 1;
+            transition: gap 0.3s;
+        }
+
+        .product-link:hover {
+            gap: 1rem;
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: var(--bg-card);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .feature-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-primary);
+        }
+
+        .feature-item p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Use Cases Section */
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .use-case-card {
+            background: linear-gradient(135deg, var(--bg-card), var(--bg-tertiary));
+            border-radius: 16px;
+            padding: 2.5rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s;
+        }
+
+        .use-case-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .use-case-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .use-case-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .use-case-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .use-case-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .use-case-list li {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .use-case-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary-light);
+        }
+
+        /* Technology Stack */
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .tech-item {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .tech-item:hover {
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .tech-item-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-item h4 {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tech-item p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .about-highlights {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .highlight-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .highlight-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .highlight-text h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+            font-size: 1.1rem;
+        }
+
+        .highlight-text p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-light), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Clients Section */
+        .clients-showcase {
+            margin-top: 4rem;
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .partner-logo {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+            min-height: 140px;
+        }
+
+        .partner-logo:hover {
+            border-color: var(--primary);
+            color: var(--text-primary);
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+        }
+
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .testimonial-quote {
+            font-size: 3rem;
+            color: var(--primary);
+            position: absolute;
+            top: 1rem;
+            left: 1.5rem;
+            opacity: 0.3;
+        }
+
+        .testimonial-text {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .testimonial-info h4 {
+            color: var(--text-primary);
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .testimonial-info p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .team-member {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 2.5rem;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.2);
+        }
+
+        .team-avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            border: 4px solid var(--bg-card);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .team-member h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .team-role {
+            color: var(--primary-light);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .team-bio {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .team-social {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .social-link {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: var(--bg-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid var(--border-color);
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Contact Section */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s;
+        }
+
+        .contact-item:hover {
+            border-color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .contact-item-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .contact-item-text h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-item-text p {
+            color: var(--text-secondary);
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            background: var(--bg-card);
+            padding: 3rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .form-group label {
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 1rem 1.2rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 24px;
+            padding: 5rem 3rem;
+            text-align: center;
+            margin: 4rem 0;
+        }
+
+        .cta-section h2 {
+            font-size: 2.8rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-section .btn {
+            background: white;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .cta-section .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            padding: 4rem 5% 2rem;
+            border-top: 1px solid var(--border-color);
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-section p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-light);
+            transform: translateX(5px);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--bg-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid var(--border-color);
+        }
+
+        .footer-social a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-links-inline {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .footer-links-inline a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links-inline a:hover {
+            color: var(--primary-light);
+        }
+
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s;
+            z-index: 999;
+            border: none;
+            box-shadow: 0 5px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.5);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .footer-content {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (max-width: 968px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero-description {
+                font-size: 1.1rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .about-content,
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .section-header h2 {
+                font-size: 2.2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 4rem 5%;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero {
+                padding: 8rem 5% 4rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .products-grid,
+            .features-grid,
+            .use-cases-grid,
+            .tech-stack,
+            .partners-grid,
+            .testimonials,
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form {
+                padding: 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <nav>
+            <div class="logo">
+                <div class="logo-icon">🚀</div>
+                <span class="logo-text">Innovex AI</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#use-cases">Use Cases</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#clients">Clients</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#contact" class="nav-cta">Get Started</a></li>
+            </ul>
+            <div class="menu-toggle" onclick="toggleSidebar()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <button class="sidebar-close" onclick="toggleSidebar()">×</button>
+        <div class="sidebar-content">
+            <ul class="sidebar-links">
+                <li><a href="#home" onclick="toggleSidebar()">Home</a></li>
+                <li><a href="#products" onclick="toggleSidebar()">Products</a></li>
+                <li><a href="#use-cases" onclick="toggleSidebar()">Use Cases</a></li>
+                <li><a href="#about" onclick="toggleSidebar()">About</a></li>
+                <li><a href="#clients" onclick="toggleSidebar()">Clients</a></li>
+                <li><a href="#team" onclick="toggleSidebar()">Team</a></li>
+                <li><a href="#contact" onclick="toggleSidebar()">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-badge">🎯 Trusted by 500+ Enterprise Clients</div>
+            <h1>Transform Your Business with AI Innovation</h1>
+            <p class="hero-description">
+                Enterprise-grade artificial intelligence solutions that drive measurable results. 
+                From predictive analytics to conversational AI, we build intelligent systems that scale with your business.
+            </p>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-primary">Start Your AI Journey →</a>
+                <a href="#products" class="btn btn-secondary">Explore Solutions</a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-number">500+</div>
+                    <div class="hero-stat-label">Active Deployments</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-number">98%</div>
+                    <div class="hero-stat-label">Client Retention</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-number">45%</div>
+                    <div class="hero-stat-label">Avg. Efficiency Gain</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products">
+        <div class="section-header">
+            <div class="section-badge">Our Solutions</div>
+            <h2>AI Products Built for Scale</h2>
+            <p>Comprehensive suite of AI-powered tools designed to solve complex business challenges across industries</p>
+        </div>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-icon-wrapper">🤖</div>
+                <h3>AI Copilot Platform</h3>
+                <p>Intelligent virtual assistant that integrates seamlessly with your existing workflows, automating repetitive tasks and providing smart contextual suggestions.</p>
+                <ul class="product-features">
+                    <li>Natural language processing</li>
+                    <li>Task automation & scheduling</li>
+                    <li>Multi-platform integration</li>
+                    <li>Real-time learning capabilities</li>
+                </ul>
+                <a href="#" class="product-link">Learn more →</a>
+            </div>
+            <div class="product-card">
+                <div class="product-icon-wrapper">📊</div>
+                <h3>Predictive Analytics Suite</h3>
+                <p>Advanced machine learning models that analyze historical data to forecast trends, optimize operations, and enable data-driven decision making.</p>
+                <ul class="product-features">
+                    <li>Demand forecasting</li>
+                    <li>Anomaly detection</li>
+                    <li>Customer behavior analysis</li>
+                    <li>Custom model training</li>
+                </ul>
+                <a href="#" class="product-link">Learn more →</a>
+            </div>
+            <div class="product-card">
+                <div class="product-icon-wrapper">💬</div>
+                <h3>Conversational AI Engine</h3>
+                <p>Next-generation chatbot and voice assistant platform powered by state-of-the-art NLP for customer service, sales automation, and support.</p>
+                <ul class="product-features">
+                    <li>Multi-language support</li>
+                    <li>Sentiment analysis</li>
+                    <li>24/7 availability</li>
+                    <li>CRM integration</li>
+                </ul>
+                <a href="#" class="product-link">Learn more →</a>
+            </div>
+            <div class="product-card">
+                <div class="product-icon-wrapper">🔍</div>
+                <h3>Computer Vision Platform</h3>
+                <p>Enterprise-grade image and video analysis for quality control, security monitoring, medical diagnostics, and automated visual inspection.</p>
+                <ul class="product-features">
+                    <li>Object detection & tracking</li>
+                    <li>Facial recognition</li>
+                    <li>Defect identification</li>
+                    <li>Real-time processing</li>
+                </ul>
+                <a href="#" class="product-link">Learn more →</a>
+            </div>
+            <div class="product-card">
+                <div class="product-icon-wrapper">🧠</div>
+                <h3>Custom AI Development</h3>
+                <p>Tailored artificial intelligence solutions built specifically for your unique business requirements, industry challenges, and organizational goals.</p>
+                <ul class="product-features">
+                    <li>Dedicated AI team</li>
+                    <li>Industry-specific models</li>
+                    <li>End-to-end development</li>
+                    <li>Ongoing optimization</li>
+                </ul>
+                <a href="#" class="product-link">Learn more →</a>
+            </div>
+            <div class="product-card">
+                <div class="product-icon-wrapper">⚡</div>
+                <h3>AI Infrastructure & MLOps</h3>
+                <p>Scalable cloud-based infrastructure for deploying, monitoring, and managing AI models in production with enterprise-grade reliability.</p>
+                <ul class="product-features">
+                    <li>Auto-scaling capabilities</li>
+                    <li>Model versioning</li>
+                    <li>Performance monitoring</li>
+                    <li>99.9% uptime SLA</li>
+                </ul>
+                <a href="#" class="product-link">Learn more →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section>
+        <div class="section-header">
+            <div class="section-badge">Why Choose Us</div>
+            <h2>Enterprise-Grade AI Capabilities</h2>
+            <p>Built on cutting-edge technology with security, scalability, and performance at the core</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon">🔒</div>
+                <h3>Enterprise Security</h3>
+                <p>SOC 2 Type II certified with end-to-end encryption, GDPR compliance, and dedicated security team</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">📈</div>
+                <h3>Scalable Architecture</h3>
+                <p>Cloud-native infrastructure that scales seamlessly from prototype to enterprise production</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🔧</div>
+                <h3>Easy Integration</h3>
+                <p>REST APIs, SDKs, and pre-built connectors for popular enterprise platforms</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">📱</div>
+                <h3>Multi-Platform</h3>
+                <p>Deploy across web, mobile, desktop, and IoT devices with unified management</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">⚙️</div>
+                <h3>Customizable Models</h3>
+                <p>Fine-tune AI models with your proprietary data for industry-specific performance</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">💼</div>
+                <h3>24/7 Expert Support</h3>
+                <p>Dedicated success team with guaranteed response times and ongoing optimization</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🎯</div>
+                <h3>Real-time Analytics</h3>
+                <p>Comprehensive dashboards with live metrics, performance tracking, and actionable insights</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🔄</div>
+                <h3>Continuous Learning</h3>
+                <p>Models that improve over time through automated retraining and feedback loops</p>
+            </div>
+        </div>
+
+        <div class="section-header" style="margin-top: 5rem;">
+            <div class="section-badge">Technology Stack</div>
+            <h2>Powered by Leading AI Technologies</h2>
+        </div>
+        <div class="tech-stack">
+            <div class="tech-item">
+                <div class="tech-item-icon">🐍</div>
+                <h4>Python & TensorFlow</h4>
+                <p>Core ML Framework</p>
+            </div>
+            <div class="tech-item">
+                <div class="tech-item-icon">🔥</div>
+                <h4>PyTorch</h4>
+                <p>Deep Learning</p>
+            </div>
+            <div class="tech-item">
+                <div class="tech-item-icon">☁️</div>
+                <h4>AWS & Azure</h4>
+                <p>Cloud Infrastructure</p>
+            </div>
+            <div class="tech-item">
+                <div class="tech-item-icon">🐳</div>
+                <h4>Docker & Kubernetes</h4>
+                <p>Containerization</p>
+            </div>
+            <div class="tech-item">
+                <div class="tech-item-icon">⚛️</div>
+                <h4>React & Node.js</h4>
+                <p>Modern Web Stack</p>
+            </div>
+            <div class="tech-item">
+                <div class="tech-item-icon">📊</div>
+                <h4>Apache Spark</h4>
+                <p>Big Data Processing</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section id="use-cases">
+        <div class="section-header">
+            <div class="section-badge">Industries We Serve</div>
+            <h2>AI Solutions Across Industries</h2>
+            <p>Proven results in diverse sectors with tailored AI implementations</p>
+        </div>
+        <div class="use-cases-grid">
+            <div class="use-case-card">
+                <div class="use-case-icon">🏥</div>
+                <h3>Healthcare</h3>
+                <p>Transform patient care and operational efficiency with AI-powered diagnostics and administrative automation</p>
+                <ul class="use-case-list">
+                    <li>Medical image analysis</li>
+                    <li>Patient risk prediction</li>
+                    <li>Drug discovery acceleration</li>
+                    <li>Administrative automation</li>
+                </ul>
+            </div>
+            <div class="use-case-card">
+                <div class="use-case-icon">🏦</div>
+                <h3>Financial Services</h3>
+                <p>Enhance security, detect fraud, and optimize trading with real-time AI analytics and risk management</p>
+                <ul class="use-case-list">
+                    <li>Fraud detection & prevention</li>
+                    <li>Credit risk assessment</li>
+                    <li>Algorithmic trading</li>
+                    <li>Customer service automation</li>
+                </ul>
+            </div>
+            <div class="use-case-card">
+                <div class="use-case-icon">🏪</div>
+                <h3>Retail & E-commerce</h3>
+                <p>Personalize shopping experiences and optimize inventory with predictive analytics and recommendation engines</p>
+                <ul class="use-case-list">
+                    <li>Personalized recommendations</li>
+                    <li>Demand forecasting</li>
+                    <li>Dynamic pricing optimization</li>
+                    <li>Visual search</li>
+                </ul>
+            </div>
+            <div class="use-case-card">
+                <div class="use-case-icon">🏭</div>
+                <h3>Manufacturing</h3>
+                <p>Improve quality control and predictive maintenance while reducing downtime through intelligent monitoring</p>
+                <ul class="use-case-list">
+                    <li>Predictive maintenance</li>
+                    <li>Quality control automation</li>
+                    <li>Supply chain optimization</li>
+                    <li>Process optimization</li>
+                </ul>
+            </div>
+            <div class="use-case-card">
+                <div class="use-case-icon">🚗</div>
+                <h3>Automotive</h3>
+                <p>Accelerate autonomous vehicle development and enhance connected car experiences with advanced AI</p>
+                <ul class="use-case-list">
+                    <li>Autonomous driving systems</li>
+                    <li>Predictive maintenance</li>
+                    <li>Driver assistance features</li>
+                    <li>Fleet optimization</li>
+                </ul>
+            </div>
+            <div class="use-case-card">
+                <div class="use-case-icon">📱</div>
+                <h3>Telecommunications</h3>
+                <p>Optimize network performance and customer experience through intelligent traffic management and support</p>
+                <ul class="use-case-list">
+                    <li>Network optimization</li>
+                    <li>Churn prediction</li>
+                    <li>Customer support automation</li>
+                    <li>Infrastructure monitoring</li>
+                </ul>
+            </div>
+            <div class="use-case-card">
+                <div class="use-case-icon">🎓</div>
+                <h3>Education</h3>
+                <p>Revolutionize learning with personalized education platforms and intelligent tutoring systems</p>
+                <ul class="use-case-list">
+                    <li>Adaptive learning paths</li>
+                    <li>Automated grading systems</li>
+                    <li>Student performance analytics</li>
+                    <li>Content recommendation</li>
+                </ul>
+            </div>
+            <div class="use-case-card">
+                <div class="use-case-icon">⚡</div>
+                <h3>Energy & Utilities</h3>
+                <p>Optimize power distribution and predict equipment failures with intelligent grid management</p>
+                <ul class="use-case-list">
+                    <li>Smart grid optimization</li>
+                    <li>Energy consumption forecasting</li>
+                    <li>Equipment failure prediction</li>
+                    <li>Renewable energy integration</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="section-header">
+            <div class="section-badge">About InnovexLabs</div>
+            <h2>Leading the AI Revolution</h2>
+            <p>Pioneering artificial intelligence solutions since 2018</p>
+        </div>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Building the Future of AI</h3>
+                <p>InnovexLabs was founded by a team of AI researchers from leading universities and technology companies with a singular mission: to democratize artificial intelligence and make it accessible to organizations of all sizes.</p>
+                <p>Today, we're a global team of 200+ AI engineers, data scientists, and domain experts serving Fortune 500 companies and innovative startups across 40+ countries. Our solutions power critical business operations, from healthcare diagnostics to financial fraud detection.</p>
+                <p>We believe in responsible AI development that augments human capabilities rather than replacing them. Every solution we build prioritizes transparency, fairness, and ethical considerations alongside technical excellence.</p>
+                <div class="about-highlights">
+                    <div class="highlight-item">
+                        <div class="highlight-icon">🎓</div>
+                        <div class="highlight-text">
+                            <h4>Research-Driven Innovation</h4>
+                            <p>Publishing 50+ peer-reviewed papers annually in top AI conferences</p>
+                        </div>
+                    </div>
+                    <div class="highlight-item">
+                        <div class="highlight-icon">🌍</div>
+                        <div class="highlight-text">
+                            <h4>Global Impact</h4>
+                            <p>Deployed in 40+ countries with multilingual support</p>
+                        </div>
+                    </div>
+                    <div class="highlight-item">
+                        <div class="highlight-icon">🏆</div>
+                        <div class="highlight-text">
+                            <h4>Award-Winning Platform</h4>
+                            <p>Recognized by Gartner and Forrester as AI leader</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Enterprise Clients</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">2000+</div>
+                    <div class="stat-label">AI Models Deployed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">99.9%</div>
+                    <div class="stat-label">Platform Uptime</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Expert Support</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clients Section -->
+    <section id="clients">
+        <div class="section-header">
+            <div class="section-badge">Our Clients</div>
+            <h2>Trusted by Industry Leaders</h2>
+            <p>Partnering with innovative companies worldwide to transform their operations through AI</p>
+        </div>
+        <div class="clients-showcase">
+            <div class="partners-grid">
+                <div class="partner-logo">GlobalTech</div>
+                <div class="partner-logo">FinanceFirst</div>
+                <div class="partner-logo">MediCare Plus</div>
+                <div class="partner-logo">RetailMax</div>
+                <div class="partner-logo">AutoDrive Inc</div>
+                <div class="partner-logo">CloudScale</div>
+                <div class="partner-logo">DataStream</div>
+                <div class="partner-logo">SecureNet</div>
+                <div class="partner-logo">EduTech Pro</div>
+                <div class="partner-logo">PowerGrid AI</div>
+                <div class="partner-logo">LogisticsPro</div>
+                <div class="partner-logo">HealthFirst</div>
+            </div>
+
+            <div class="section-header" style="margin-top: 4rem;">
+                <h2>What Our Clients Say</h2>
+            </div>
+            <div class="testimonials">
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"</div>
+                    <p class="testimonial-text">InnovexLabs transformed our customer service operations. Their AI chatbot reduced response times by 80% while improving customer satisfaction scores significantly. The ROI was clear within the first quarter.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">JD</div>
+                        <div class="testimonial-info">
+                            <h4>Jessica Davis</h4>
+                            <p>CTO, RetailMax</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"</div>
+                    <p class="testimonial-text">The predictive analytics platform has revolutionized our supply chain. We've reduced inventory costs by 35% while improving delivery times. InnovexLabs' team was exceptional throughout implementation.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">MC</div>
+                        <div class="testimonial-info">
+                            <h4>Michael Chen</h4>
+                            <p>VP Operations, GlobalTech</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"</div>
+                    <p class="testimonial-text">Their computer vision solution for medical imaging has been a game-changer. We're detecting anomalies earlier with higher accuracy, leading to better patient outcomes.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">SP</div>
+                        <div class="testimonial-info">
+                            <h4>Dr. Sarah Park</h4>
+                            <p>Chief Medical Officer, MediCare Plus</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"</div>
+                    <p class="testimonial-text">InnovexLabs transformed our customer service operations. Their AI chatbot reduced response times by 80% while improving customer satisfaction scores significantly. The ROI was clear within the first quarter.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">JD</div>
+                        <div class="testimonial-info">
+                            <h4>Jessica Davis</h4>
+                            <p>CTO, RetailMax</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"</div>
+                    <p class="testimonial-text">The predictive analytics platform has revolutionized our supply chain. We've reduced inventory costs by 35% while improving delivery times. InnovexLabs' team was exceptional throughout implementation.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">MC</div>
+                        <div class="testimonial-info">
+                            <h4>Michael Chen</h4>
+                            <p>VP Operations, GlobalTech</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"</div>
+                    <p class="testimonial-text">Their computer vision solution for medical imaging has been a game-changer. We're detecting anomalies earlier with higher accuracy, leading to better patient outcomes.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">SP</div>
+                        <div class="testimonial-info">
+                            <h4>Dr. Sarah Park</h4>
+                            <p>Chief Medical Officer, MediCare Plus</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team">
+        <div class="section-header">
+            <div class="section-badge">Our Team</div>
+            <h2>Meet the Innovators</h2>
+            <p>World-class AI experts, researchers, and engineers driving the future of intelligent systems</p>
+        </div>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="team-avatar">👩‍💼</div>
+                <h4>Dr. Sarah Chen</h4>
+                <p class="team-role">CEO & Co-Founder</p>
+                <p class="team-bio">Former Stanford AI Lab researcher with 15+ years in machine learning. PhD in Computer Science from MIT.</p>
+                <div class="team-social">
+                    <a href="#" class="social-link">💼</a>
+                    <a href="#" class="social-link">🐦</a>
+                    <a href="#" class="social-link">📧</a>
+                </div>
+            </div>
+            <div class="team-member">
+                <div class="team-avatar">👨‍💻</div>
+                <h4>Michael Rodriguez</h4>
+                <p class="team-role">CTO & Co-Founder</p>
+                <p class="team-bio">Previously led AI initiatives at Google and Microsoft. Expert in distributed systems and MLOps.</p>
+                <div class="team-social">
+                    <a href="#" class="social-link">💼</a>
+                    <a href="#" class="social-link">🐦</a>
+                    <a href="#" class="social-link">📧</a>
+                </div>
+            </div>
+            <div class="team-member">
+                <div class="team-avatar">👩‍🔬</div>
+                <h4>Dr. Emily Watson</h4>
+                <p class="team-role">Head of Research</p>
+                <p class="team-bio">Leading NLP researcher with publications in top AI conferences. Former Amazon Alexa team member.</p>
+                <div class="team-social">
+                    <a href="#" class="social-link">💼</a>
+                    <a href="#" class="social-link">🐦</a>
+                    <a href="#" class="social-link">📧</a>
+                </div>
+            </div>
+            <div class="team-member">
+                <div class="team-avatar">👨‍🎓</div>
+                <h4>James Park</h4>
+                <p class="team-role">VP of Engineering</p>
+                <p class="team-bio">15 years building scalable AI infrastructure. Previously at Tesla Autopilot and Uber AI Labs.</p>
+                <div class="team-social">
+                    <a href="#" class="social-link">💼</a>
+                    <a href="#" class="social-link">🐦</a>
+                    <a href="#" class="social-link">📧</a>
+                </div>
+            </div>
+            <div class="team-member">
+                <div class="team-avatar">👩‍💼</div>
+                <h4>Lisa Kumar</h4>
+                <p class="team-role">VP of Product</p>
+                <p class="team-bio">Product leadership experience at leading SaaS companies. Focused on AI-powered enterprise solutions.</p>
+                <div class="team-social">
+                    <a href="#" class="social-link">💼</a>
+                    <a href="#" class="social-link">🐦</a>
+                    <a href="#" class="social-link">📧</a>
+                </div>
+            </div>
+            <div class="team-member">
+                <div class="team-avatar">👨‍💼</div>
+                <h4>David Thompson</h4>
+                <p class="team-role">Chief Data Scientist</p>
+                <p class="team-bio">Expert in computer vision and deep learning. PhD from Berkeley, former researcher at OpenAI.</p>
+                <div class="team-social">
+                    <a href="#" class="social-link">💼</a>
+                    <a href="#" class="social-link">🐦</a>
+                    <a href="#" class="social-link">📧</a>
+                </div>
+            </div>
+            <div class="team-member">
+                <div class="team-avatar">👩‍💼</div>
+                <h4>Lisa Kumar</h4>
+                <p class="team-role">VP of Product</p>
+                <p class="team-bio">Product leadership experience at leading SaaS companies. Focused on AI-powered enterprise solutions.</p>
+                <div class="team-social">
+                    <a href="#" class="social-link">💼</a>
+                    <a href="#" class="social-link">🐦</a>
+                    <a href="#" class="social-link">📧</a>
+                </div>
+            </div>
+            <div class="team-member">
+                <div class="team-avatar">👨‍💼</div>
+                <h4>David Thompson</h4>
+                <p class="team-role">Chief Data Scientist</p>
+                <p class="team-bio">Expert in computer vision and deep learning. PhD from Berkeley, former researcher at OpenAI.</p>
+                <div class="team-social">
+                    <a href="#" class="social-link">💼</a>
+                    <a href="#" class="social-link">🐦</a>
+                    <a href="#" class="social-link">📧</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section>
+        <div class="cta-section">
+            <h2>Ready to Transform Your Business?</h2>
+            <p>Join hundreds of companies leveraging AI to drive innovation, efficiency, and growth. Start your AI journey with InnovexLabs today.</p>
+            <a href="#contact" class="btn">Schedule a Demo</a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="section-header">
+            <div class="section-badge">Get In Touch</div>
+            <h2>Let's Build Something Amazing</h2>
+            <p>Our team is ready to discuss your AI needs and create a custom solution for your business</p>
+        </div>
+        <div class="contact-wrapper">
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <p>Whether you're looking to implement AI for the first time or scale existing solutions, we're here to help. Reach out to discuss your project.</p>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-item-icon">📧</div>
+                        <div class="contact-item-text">
+                            <h4>Email Us</h4>
+                            <p>hello@innovexlabs.ai</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">📞</div>
+                        <div class="contact-item-text">
+                            <h4>Call Us</h4>
+                            <p>+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">📍</div>
+                        <div class="contact-item-text">
+                            <h4>Visit Us</h4>
+                            <p>123 Innovation Drive<br>San Francisco, CA 94105</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">⏰</div>
+                        <div class="contact-item-text">
+                            <h4>Business Hours</h4>
+                            <p>Mon-Fri: 9:00 AM - 6:00 PM PST</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <form class="contact-form" onsubmit="handleSubmit(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name *</label>
+                        <input type="text" id="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name *</label>
+                        <input type="text" id="lastName" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="company">Company</label>
+                        <input type="text" id="company">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="interest">I'm Interested In</label>
+                    <select id="interest">
+                        <option>AI Copilot Platform</option>
+                        <option>Predictive Analytics</option>
+                        <option>Conversational AI</option>
+                        <option>Computer Vision</option>
+                        <option>Custom AI Development</option>
+                        <option>AI Infrastructure</option>
+                        <option>General Inquiry</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" required placeholder="Tell us about your project and how we can help..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message →</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="logo" style="margin-bottom: 1rem;">
+                    <div class="logo-icon">🚀</div>
+                    <span class="logo-text">InnovexLabs</span>
+                </div>
+                <p>Pioneering the future of artificial intelligence with enterprise-grade solutions that drive real business results.</p>
+                <div class="footer-social">
+                    <a href="#">💼</a>
+                    <a href="#">🐦</a>
+                    <a href="#">📘</a>
+                    <a href="#">📸</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Products</h4>
+                <ul class="footer-links">
+                    <li><a href="#products">AI Copilot</a></li>
+                    <li><a href="#products">Predictive Analytics</a></li>
+                    <li><a href="#products">Conversational AI</a></li>
+                    <li><a href="#products">Computer Vision</a></li>
+                    <li><a href="#products">Custom Development</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Solutions</h4>
+                <ul class="footer-links">
+                    <li><a href="#use-cases">Healthcare</a></li>
+                    <li><a href="#use-cases">Finance</a></li>
+                    <li><a href="#use-cases">Retail</a></li>
+                    <li><a href="#use-cases">Manufacturing</a></li>
+                    <li><a href="#use-cases">Automotive</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul class="footer-links">
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#clients">Clients</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">API Reference</a></li>
+                    <li><a href="#">Case Studies</a></li>
+                    <li><a href="#">Whitepapers</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 InnovexLabs AI Corporation. All rights reserved.</p>
+            <ul class="footer-links-inline">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Cookie Policy</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTop" onclick="scrollToTop()">↑</button>
+
+    <script>
+        // Toggle Sidebar
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        // Handle Form Submission
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert('Thank you for reaching out! Our team will get back to you within 24 hours.');
+            event.target.reset();
+        }
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header Scroll Effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll to Top Button
+        const scrollTopBtn = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Animation on Scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.product-card, .feature-item, .use-case-card, .team-member, .testimonial-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Close sidebar when clicking outside
+        document.addEventListener('click', (e) => {
+            const sidebar = document.getElementById('sidebar');
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (!sidebar.contains(e.target) && !menuToggle.contains(e.target) && sidebar.classList.contains('active')) {
+                sidebar.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
